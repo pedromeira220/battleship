@@ -31,5 +31,3 @@ function createHTMLTable() {
         return td;
     }
 }
-
-createHTMLTable()
