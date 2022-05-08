@@ -29,7 +29,7 @@ td {
     height: 94px;
 }
 
-form {
+#guessInputDiv {
     position: absolute;
     bottom: 0px;
     right: 0px;
@@ -37,7 +37,7 @@ form {
     background-color: rgb(83, 175, 19);
 }
 
-form input {
+#guessInputDiv input {
     background-color: rgb(152, 207, 113);
     border-color: rgb(83, 175, 19);
     font-size: 1em;

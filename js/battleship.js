@@ -27,7 +27,7 @@ const model = {
     ],
 
     fire: function(guess) {
-
+        let theShipWasHit = false;
         for (let i = 0; i < this.numberOfShips; i++) {
             const ship = this.ships[i];
             const index = ship.locations.indexOf(guess);
@@ -41,14 +41,16 @@ const model = {
                     view.displayMessage("You sank my battleship!");
                     this.shipsSunk++;
                 }
+                theShipWasHit = true;
                 return true;
             }
 
-            view.displayMiss(guess);
-            view.displayMessage("You missed!");
-
-            return false;
+            theShipWasHit = false;
         }
+
+        view.displayMiss(guess);
+        view.displayMessage("You missed!");
+        return theShipWasHit;
     },
 
     isSunk: function(ship) {
@@ -105,3 +107,21 @@ function parseGuess(guess) {
         return null;
     }
 }
+
+function init() {
+    const fireButton = document.getElementById('fireButton');
+    const guessInput = document.getElementById('guessInput');
+    fireButton.onclick = handleFireButton;
+
+    guessInput.focus();
+
+    function handleFireButton() {
+        const guess = guessInput.value;
+        controller.processGuess(guess);
+
+        guessInput.value = "";
+        guessInput.focus();
+    }
+}
+
+window.onload = init;
