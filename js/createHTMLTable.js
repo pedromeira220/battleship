@@ -25,7 +25,15 @@ function createHTMLTable() {
 
     function createTD(j, i) {
         const td = document.createElement('td');
-        const indexOfTd = j + (i * 10);
+        let indexOfTd = j + (i * 10);
+
+        if (indexOfTd < 10) {
+            indexOfTd = "0" + indexOfTd;
+        } else {
+            indexOfTd = indexOfTd.toString();
+        }
+
+
         td.setAttribute('id', indexOfTd);
 
         return td;

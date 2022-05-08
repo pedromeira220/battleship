@@ -33,7 +33,7 @@ const model = {
             if (index >= 0) { //The guess hit a ship
                 ship.hits[index] = "hit";
 
-                view.displayHit(parseInt(guess));
+                view.displayHit(guess);
                 view.displayMessage("HIT!");
 
                 if (this.isSunk(ship)) {
@@ -43,7 +43,7 @@ const model = {
                 return true;
             }
 
-            view.displayMiss(parseInt(guess));
+            view.displayMiss(guess);
             view.displayMessage("You missed!");
 
             return false;
@@ -59,3 +59,34 @@ const model = {
         }
     }
 };
+
+const controller = {
+    guesses: 0,
+
+    processGuess: function() {
+
+
+    },
+}
+
+function parseGuess(guess) {
+    if (guess == null || guess.length !== 2) {
+        alert("Oops, please enter a letter and a number on the board.");
+
+    } else {
+        const alphabet = ["A", "B", "C", "D", "E", "F", "G"];
+        const firstChar = guess.charAt(0);
+        const row = alphabet.indexOf(firstChar);
+        const column = guess.charAt(1);
+
+        if (isNaN(row) || isNaN(column)) {
+            alert("Oops, that isn't on the board.");
+        } else if (row < 0 || row >= model.boardSize ||
+            column < 0 || column >= model.boardSize) {
+            alert("Oops, that's off the board.")
+        } else {
+            return row + column;
+        }
+        return null;
+    }
+}
