@@ -4,6 +4,7 @@ createHTMLTable()
 const view = {
     displayMessage: function(message) {
         document.getElementById("messageArea").innerHTML = message;
+        console.log(message); // This line is only for debugging purposes
     },
     displayHit: function(location) {
         document.getElementById(location).setAttribute("class", "hit");
@@ -51,21 +52,35 @@ const model = {
     },
 
     isSunk: function(ship) {
-        for (let i = 0; i < this.numberOfShips; i++) {
-            if (ship.hits[0] !== "hit") {
-                return false;
+
+        let isShipSunk = false;
+
+        for (let i = 0; i < this.lengthOfAShip; i++) {
+            if (ship.hits[i] !== "hit") {
+                isShipSunk = false;
+            } else {
+                isShipSunk = true;
             }
-            return true;
+
         }
+
+        return isShipSunk;
     }
 };
 
 const controller = {
     guesses: 0,
 
-    processGuess: function() {
+    processGuess: function(guess) {
+        const location = parseGuess(guess);
+        if (location) {
+            this.guesses++;
+            const hit = model.fire(location);
 
-
+            if (hit && model.shipsSunk === model.numberOfShips) {
+                view.displayMessage(`You sank all my battleships, in ${this.guesses} guesses`)
+            }
+        }
     },
 }
 
