@@ -112,8 +112,18 @@ function init() {
     const fireButton = document.getElementById('fireButton');
     const guessInput = document.getElementById('guessInput');
     fireButton.onclick = handleFireButton;
+    guessInput.onkeypress = handleKeyPress;
+
 
     guessInput.focus();
+
+
+    function handleKeyPress(e) {
+        if (e.keyCode === 13) {
+            fireButton.click();
+            return false;
+        }
+    }
 
     function handleFireButton() {
         const guess = guessInput.value;
